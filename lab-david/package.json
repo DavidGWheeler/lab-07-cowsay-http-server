@@ -8,8 +8,11 @@
   },
   "scripts": {
     "test": "mocha",
-    "start": "node server.js"
+    "start": "node server.js",
+    "watch": "nodemon server.js",
+    "debug": "DEBUG=cowsay* nodemon server.js"
   },
+  "keywords": [],
   "author": "DavidGWheeler",
   "license": "MIT",
   "dependencies": {

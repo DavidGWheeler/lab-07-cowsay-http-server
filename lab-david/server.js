@@ -16,7 +16,6 @@ const server = module.exports = http.createServer(function(req, res) {
       bodyParser(req, err => {
         if(err) console.error(err);
         let message = cowsay.say({text: req.body.text});
-        console.log(req.body);
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.write(message);
         res.end();
@@ -32,7 +31,18 @@ const server = module.exports = http.createServer(function(req, res) {
   }
 
   if(req.method === 'GET') {
-
+    if(req.url.pathname === '/cowsay') {
+      if(!req.url.query.text) {
+        let message = cowsay.say({text: 'bad request\ntry localhost:3000/cowsay?text=moo&&e=o0&&t=U'});
+        res.writeHead(400, {'Content-Type': 'text/plain'});
+        res.write(message);
+        res.end();
+      }
+      let message = cowsay.say({text: req.body.text});
+      res.writeHead(200, {'Content-Type': 'text/plain'});
+      res.write(message);
+      res.end();
+    }
   }
 
 });
