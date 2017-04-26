@@ -11,11 +11,7 @@ const server = module.exports = http.createServer(function(req, res) {
   req.url = url.parse(req.url);
   req.url.query = queryString.parse(req.url.query);
 
-  if(req.url.pathname ==='/') {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.write('hello world');
-    res.end();
-  }
+
 
   if(req.method === 'POST') {
     if(req.url.pathname === '/cowsay') {
@@ -24,11 +20,18 @@ const server = module.exports = http.createServer(function(req, res) {
         let message = cowsay.say({text: req.body.text});
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.write(message);
+        console.log(res);
         res.end();
       });
+    } else if(req.url.pathname ==='/') {
+      let message = cowsay.say({text: 'hello world'});
+      res.writeHead(200, {'Content-Type': 'text/plain'});
+      res.write(message);
+      res.end();
+
     } else {
       let message = cowsay.say(
-        {text: 'bad request\ntry localhost:3000/cowsay?text=howdy'}
+        {text: 'bad request\ntry localhost:3030/cowsay?text=howdy'}
       );
       res.writeHead(400, {'Content-Type': 'text/plain'});
       res.write(message);
@@ -39,12 +42,13 @@ const server = module.exports = http.createServer(function(req, res) {
   if(req.method === 'GET') {
     if(req.url.pathname === '/cowsay') {
       if(!req.url.query.text) {
-        let message = cowsay.say({text: 'bad request\ntry localhost:3000/cowsay?text=howdy'});
+        let message = cowsay.say({text: 'bad request\ntry localhost:3030/cowsay?text=howdy'});
         res.writeHead(400, {'Content-Type': 'text/plain'});
         res.write(message);
         res.end();
       }
-      let message = cowsay.say({text: req.body.text});
+    } else if(req.url.pathname ==='/') {
+      let message = cowsay.say({text: 'hello world'});
       res.writeHead(200, {'Content-Type': 'text/plain'});
       res.write(message);
       res.end();

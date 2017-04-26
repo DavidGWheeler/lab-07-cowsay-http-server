@@ -1,7 +1,7 @@
 'use strict';
 
 const server = require('../server.js');
-const cowsay = require('cowsay');
+// const cowsay = require('cowsay');
 const chai = require('chai');
 const http = require('chai-http');
 const expect = chai.expect;
@@ -10,7 +10,7 @@ chai.use(http);
 
 describe('Server module', function() {
   before(done => {
-    server.listen(3000);
+    server.listen(3030);
     done();
   });
 
@@ -48,8 +48,8 @@ describe('Server module', function() {
       .send({})
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        done();
       });
+        done();
       });
     });
     describe('/cowsay endpoint', function() {
@@ -59,17 +59,17 @@ describe('Server module', function() {
         .send({})
         .end((err, res) => {
           expect(res.status).to.equal(200);
-          done();
         });
+        done();
       });
       it('should respond with a 400 on bad request', done => {
         chai.request(server)
-          .post('/r\badReq?text=test endpoint')
+          .post('/badReq?text=test endpoint')
           .send({})
           .end((err, res) => {
             expect(res.status).to.equal(400);
-            done();
           });
+        done();
       });
     });
 
