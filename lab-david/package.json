@@ -1,0 +1,15 @@
+{
+  "name": "lab-david",
+  "version": "1.0.0",
+  "description": "http server creation",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js"
+  },
+  "author": "DavidGWheeler",
+  "license": "MIT"
+}
