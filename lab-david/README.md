@@ -2,7 +2,7 @@
 ====
 This project is meant to show the use of an HTTP GET or POST request and get a response.  The response body should be used in cowsay.
 
-for example, using httpie, ```http :3030/``` will return:
+for example, (using httpie), ```http :3030/``` will return:
 
 ```
  _____________
@@ -14,16 +14,16 @@ for example, using httpie, ```http :3030/``` will return:
                 ||----w |
                 ||     ||
 ```
-## GET Requests: http localhost:3000/ //will respond with "hello world" with no cowsay http localhost:3000/cowsay text=='[insert text]' : will respond with cowsay //will
+### GET Requests:
+(using httpie)
 
-## POST Requests:
+ ```:3000/cowsay?text='[insert text]'```  will respond with cowsay
 
-Ensure you have a data.json file.
+### POST Requests:
+(using httpie)
+ ```:3000/``` //will respond with "hello world" in cowsay
 
-Ensure your data.json file has an object with the property of 'text' that is set to string.
 
-Run the following command
 ### Attributions
-- Kayla Alvarado helped me resolve some server issues
+- Kayla Alvarado helped me resolve some server issues and improvements to expect strings.
 - Steven Johnson helped me with some testing ideas
-- Took a peek at a github I found via Google for help with understanding
