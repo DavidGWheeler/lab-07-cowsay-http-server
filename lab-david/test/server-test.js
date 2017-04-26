@@ -22,20 +22,20 @@ describe('Server module', function() {
     .post('/badReq')
     .send({})
     .end((err, res) => {
-      expect(res.status).to.equal(400);
+      expect(res).to.have.status(400);
+      done();
     });
-        done();
       });
     });
     describe('/cowsay endpoint', function() {
       it('should respond with a 200 on proper request', done => {
         chai.request(server)
     .post('/cowsay')
-    .send({})
+    .send({text: 'hello'})
     .end((err, res) => {
-      expect(res.status).to.equal(200);
+      expect(res).to.have.status(200);
+      done();
     });
-        done();
       });
     });
   });
@@ -44,32 +44,32 @@ describe('Server module', function() {
     describe('/ endpoint', function() {
       it('should respond with a 400 on bad request', done => {
         chai.request(server)
-      .get('/badReq?text=test endpoint')
+      .post('/badReq?text=test endpoint')
       .send({})
       .end((err, res) => {
-        expect(res.status).to.equal(400);
-      });
+        expect(res).to.have.status(400);
         done();
+      });
       });
     });
     describe('/cowsay endpoint', function() {
       it('should respond with a 200 on proper request', done => {
         chai.request(server)
         .post('/cowsay?text=test endpoint')
-        .send({})
+        .send({text: 'hello world'})
         .end((err, res) => {
-          expect(res.status).to.equal(200);
+          expect(res).to.have.status(200);
+          done();
         });
-        done();
       });
       it('should respond with a 400 on bad request', done => {
         chai.request(server)
           .post('/badReq?text=test endpoint')
           .send({})
           .end((err, res) => {
-            expect(res.status).to.equal(400);
+            expect(res).to.have.status(400);
+            done();
           });
-        done();
       });
     });
 

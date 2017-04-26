@@ -20,7 +20,6 @@ const server = module.exports = http.createServer(function(req, res) {
         let message = cowsay.say({text: req.body.text});
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.write(message);
-        console.log(res);
         res.end();
       });
     } else if(req.url.pathname ==='/') {
