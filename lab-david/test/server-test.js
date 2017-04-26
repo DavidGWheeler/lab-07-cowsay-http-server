@@ -14,50 +14,67 @@ describe('Server module', function() {
     done();
   });
 
-  after(done => {
-    server.close();
-    done();
-  });
 
   describe('POST method', function() {
     describe('/ endpoint', function() {
       it('should respond with a 400 on bad request', done => {
         chai.request(server)
-        .post('/badReq endpoint')
-        .send({})
-        .end((err, res) => {
-          expect(res.status).to.equal(400);
-        });
+    .post('/badReq')
+    .send({})
+    .end((err, res) => {
+      expect(res.status).to.equal(400);
+    });
         done();
       });
     });
     describe('/cowsay endpoint', function() {
       it('should respond with a 200 on proper request', done => {
-
+        chai.request(server)
+    .post('/cowsay')
+    .send({})
+    .end((err, res) => {
+      expect(res.status).to.equal(200);
+    });
         done();
+      });
+    });
+  });
+
+  describe('GET method', function() {
+    describe('/ endpoint', function() {
+      it('should respond with a 400 on bad request', done => {
+        chai.request(server)
+      .get('/badReq?text=test endpoint')
+      .send({})
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        done();
+      });
+      });
+    });
+    describe('/cowsay endpoint', function() {
+      it('should respond with a 200 on proper request', done => {
+        chai.request(server)
+        .post('/cowsay?text=test endpoint')
+        .send({})
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          done();
+        });
       });
       it('should respond with a 400 on bad request', done => {
-
-        done();
+        chai.request(server)
+          .post('/r\badReq?text=test endpoint')
+          .send({})
+          .end((err, res) => {
+            expect(res.status).to.equal(400);
+            done();
+          });
       });
     });
-  });
-});
 
-describe('GET method', function() {
-  describe('/ endpoint', function() {
-    it('should respond with a 400 on bad request', done => {
-
-      done();
-    });
-  });
-  describe('/cowsay endpoint', function() {
-    it('should respond with a 200 on proper request', done => {
-
-      done();
-    });
-    it('should respond with a 400 on bad request', done => {
-
+    after(done => {
+      server.close();
       done();
     });
   });

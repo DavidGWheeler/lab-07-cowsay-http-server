@@ -3,13 +3,19 @@
 const bodyParser = require('./lib/body-parser');
 const http = require('http');
 const url = require('url');
-const queryString = require('queryString');
+const queryString = require('querystring');
 const cowsay = require('cowsay');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3030;
 
 const server = module.exports = http.createServer(function(req, res) {
   req.url = url.parse(req.url);
   req.url.query = queryString.parse(req.url.query);
+
+  if(req.url.pathname ==='/') {
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.write('hello world');
+    res.end();
+  }
 
   if(req.method === 'POST') {
     if(req.url.pathname === '/cowsay') {
@@ -22,7 +28,7 @@ const server = module.exports = http.createServer(function(req, res) {
       });
     } else {
       let message = cowsay.say(
-        {text: 'bad request\ntry localhost:3000/cowsay with a proper body'}
+        {text: 'bad request\ntry localhost:3000/cowsay?text=howdy'}
       );
       res.writeHead(400, {'Content-Type': 'text/plain'});
       res.write(message);
@@ -33,7 +39,7 @@ const server = module.exports = http.createServer(function(req, res) {
   if(req.method === 'GET') {
     if(req.url.pathname === '/cowsay') {
       if(!req.url.query.text) {
-        let message = cowsay.say({text: 'bad request\ntry localhost:3000/cowsay?text=moo&&e=o0&&t=U'});
+        let message = cowsay.say({text: 'bad request\ntry localhost:3000/cowsay?text=howdy'});
         res.writeHead(400, {'Content-Type': 'text/plain'});
         res.write(message);
         res.end();
