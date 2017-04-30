@@ -14,13 +14,15 @@ describe('Server module', function() {
   });
 
 
-  describe('POST method', function() {
+  describe('POST method', function() {//write
     describe('/ endpoint', function() {
       it('should respond with a 400 on bad request', done => {
         chai.request(server)
     .post('/badReq')
     .send({})
     .end((err, res) => {
+      let cowsay = cowsay.say({text: 'bad request\ntry: localhost:3030/'});
+      expect(res.text.toString()).to.equal(cowsay);
       expect(res).to.have.status(400);
       done();
     });
@@ -30,8 +32,10 @@ describe('Server module', function() {
       it('should respond with a 200 on proper request', done => {
         chai.request(server)
     .post('/cowsay')
-    .send({text: 'hello'})
+    .send({text: 'hello world'})
     .end((err, res) => {
+      let cowsay = cowsay.say({text: 'hello world'});
+      expect(res.text.toString()).to.equal(cowsay);
       expect(res).to.have.status(200);
       done();
     });
@@ -39,7 +43,7 @@ describe('Server module', function() {
     });
   });
 
-  describe('GET method', function() {
+  describe('GET method', function() {//read
     describe('/ endpoint', function() {
       it('should respond with a 400 on bad request', done => {
         chai.request(server)
